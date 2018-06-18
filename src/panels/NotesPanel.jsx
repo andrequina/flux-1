@@ -253,6 +253,7 @@ export default class NotesPanel extends Component {
                     patient={this.props.patient}
                     saveNoteOnChange={this.saveNoteOnChange}
                     selectedNote={this.state.selectedNote}
+                    setDocumentTextWithCallback={this.props.setDocumentTextWithCallback}
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     shortcutManager={this.props.shortcutManager}
@@ -340,6 +341,7 @@ NotesPanel.propTypes = {
     openClinicalNote: PropTypes.object,
     patient: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
+    setDocumentTextWithCallback: PropTypes.func.isRequired,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
