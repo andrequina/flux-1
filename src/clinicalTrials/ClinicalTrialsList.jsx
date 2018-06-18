@@ -1,8 +1,8 @@
-import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
-import PALLAScql from '../lib/cql-execution/example/cql/PALLASEligibility.json';
-import PATINAcql from '../lib/cql-execution/example/cql/PatinaEligibility.json';
-import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/PALLASPatient.json';
-import PATINA_eligiblePatient from '../lib/cql-execution/example/patients/PATINAPatient.json'
+// import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
+// import PALLAScql from '../lib/cql-execution/example/cql/PALLASEligibility.json';
+// import PATINAcql from '../lib/cql-execution/example/cql/PatinaEligibility.json';
+// import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/PALLASPatient.json';
+// import PATINA_eligiblePatient from '../lib/cql-execution/example/patients/PATINAPatient.json'
 
 
 class ClinicalTrialsList {
@@ -14,7 +14,7 @@ class ClinicalTrialsList {
                 description: 'A Randomized, Open Label, Phase III Trial to Evaluate the Efficacy and Safety of Palbociclib + Anti-HER2 Therapy + Endocrine Therapy vs. Anti-HER2 Therapy + Endocrine Therapy after Induction Treatment for Hormone Receptor Positive (HR+)/HER2-Positive Metastatic Breast Cancer',
                 studyStartDate: '21 Jun 2017',
                 cliniclTrialsGovIdentifier: 'NCT02947685',
-                inclusionCriteriaCQL: PATINAcql,
+                // inclusionCriteriaCQL: PATINAcql,
                 exclusionCriteriaCQL: null,
                 informationalURL: 'https://clinicaltrials.gov/ct2/show/NCT02947685',
                 additionalCriteria: []
@@ -25,7 +25,7 @@ class ClinicalTrialsList {
                 description: 'PALbociclib CoLlaborative Adjuvant Study: A randomized phase III trial of Palbociclib with standard adjuvant endocrine therapy versus standard adjuvant endocrine therapy alone for hormone receptor positive (HR+) / human epidermal growth factor receptor 2 (HER2)-negative early breast cancer',
                 studyStartDate: '1 Aug 2015',
                 cliniclTrialsGovIdentifier: 'NCT02513394',
-                inclusionCriteriaCQL: PALLAScql,
+                // inclusionCriteriaCQL: PALLAScql,
                 exclusionCriteriaCQL: null,
                 informationalURL: 'https://clinicaltrials.gov/ct2/show/NCT02513394',
                 additionalCriteria: ['Signed informed consent prior to study specific procedures',
@@ -77,26 +77,26 @@ class ClinicalTrialsList {
         enrolledTrials = enrolledTrials.map((trial) => {
             return trial.title;
         });
-        for (let n in this.clinicalTrials) {
-            let trial = this.clinicalTrials[n];
-            let missingCriteria = ["None"];
-            if ((trial.inclusionCriteriaCQL != null) && (enrolledTrials.indexOf(trial.name) === -1)) {
-                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
-                let checkedCriteriaList = result.patientResults[patient_id].findMissingData;
-                let checkedCriteriaNumber = Object.keys(checkedCriteriaList).length;
-                let additionalCriteriaNumber = trial.additionalCriteria.length;
-                let totalCriteriaNumber = checkedCriteriaNumber + additionalCriteriaNumber;
-                if (result.patientResults[patient_id].meetsInclusionCriteria) {
-                    eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
-                }
-                else if (result.patientResults[patient_id].checkNotDisqualified) {
-                    missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].findMissingData);
-                    let missingCriteriaNumber = missingCriteria.length;
-                    checkedCriteriaNumber -= missingCriteriaNumber;
-                    eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
-                }
-            }
-        }
+        // for (let n in this.clinicalTrials) {
+        //     let trial = this.clinicalTrials[n];
+        //     let missingCriteria = ["None"];
+        //     if ((trial.inclusionCriteriaCQL != null) && (enrolledTrials.indexOf(trial.name) === -1)) {
+        //         let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
+        //         let checkedCriteriaList = result.patientResults[patient_id].findMissingData;
+        //         let checkedCriteriaNumber = Object.keys(checkedCriteriaList).length;
+        //         let additionalCriteriaNumber = trial.additionalCriteria.length;
+        //         let totalCriteriaNumber = checkedCriteriaNumber + additionalCriteriaNumber;
+        //         if (result.patientResults[patient_id].meetsInclusionCriteria) {
+        //             eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
+        //         }
+        //         else if (result.patientResults[patient_id].checkNotDisqualified) {
+        //             missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].findMissingData);
+        //             let missingCriteriaNumber = missingCriteria.length;
+        //             checkedCriteriaNumber -= missingCriteriaNumber;
+        //             eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
+        //         }
+        //     }
+        // }
         return eligibleTrials;
     }
 

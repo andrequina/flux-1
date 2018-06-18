@@ -600,12 +600,12 @@ export default class SummaryMetadata {
                                 headings: ["Name", "When Enrolled", "When Left", "Description"],
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
                             },
-                            {
-                                name: "Potential to enroll",
-                                headings: ["Name", "Criteria Fit", "Opened", "Description"],
-                                itemsFunction: this.getItemListForClinicalTrialEligibility
+                            // {
+                            //     name: "Potential to enroll",
+                            //     headings: ["Name", "Criteria Fit", "Opened", "Description"],
+                            //     itemsFunction: this.getItemListForClinicalTrialEligibility
 
-                            }
+                            // }
                         ]
                     },
                     {
